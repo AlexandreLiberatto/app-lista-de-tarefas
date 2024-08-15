@@ -1,18 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { AppLoading } from 'expo';
 
 export default function App() {
 
   const image = require('./resources/bg.jpg')
+
 
   return (
     <View style={{flex:1}}>
 
         <ImageBackground source={image} style={styles.image}>
           <View style={styles.coverView}>
-          <Text style={styles.textHeader}>Lista De Tarefas - Liberato Sistemas</Text>
+            <Text style={styles.textHeader}>Lista De Tarefas - Liberato Sistemas</Text>
           </View>
         </ImageBackground>
+        <AntDesign name="minuscircleo" size={24} color="black" />
+
+        <View style={styles.tarefaSingle}>
+          
+        </View>
+
     </View>
   );
 }
@@ -34,6 +43,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontSize: 20,
-    marginTop: 20
+    marginTop: 45,
+  },
+
+  tarefaSingle: {
+    marginTop: 30,
+    width: '100%',
+    borderBottomColor:'black',
+    flexDirection:'row',
+    paddingBottom:10,
   }
 });
+
+/* parei no video 2, 09:03 */
