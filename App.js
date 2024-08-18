@@ -15,12 +15,21 @@ export default function App() {
     },
     {
       id: 2,
-      tarefa: 'Minha outra tarefa.'
+      tarefa: 'Minha outra tarefa 2.'
+    },
+    {
+      id: 3,
+      tarefa: 'Minha outra tarefa 3.'
     }
   ]);
 
-  function deletarTarefa() {
+  function deletarTarefa(id) {
+    
+    let newTarefas = tarefas.filter(function(val){
+      return val.id != id;
+    });
 
+    setarTarefas(newTarefas);
   }
 
   return (
@@ -83,4 +92,3 @@ const styles = StyleSheet.create({
   }
 });
 
-/* PAREI NO VIDEO 03 */
