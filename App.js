@@ -88,6 +88,11 @@ export default function App() {
           })
         }
 
+        <TouchableOpacity style={styles.btnAddTarefas} 
+        onPress={()=>setModal(true)}>
+          <Text style={{textAlign:'center',color:'white'}}>Adicionar ✅</Text>
+          </TouchableOpacity>
+
     </ScrollView>
   );
 }
@@ -97,6 +102,15 @@ const styles = StyleSheet.create({
     width:'100%',
     height:80,
     resizeMode: "cover",
+  },
+
+  btnAddTarefas: {
+    width:200,
+    padding:8, 
+    backgroundColor: 'green',
+    marginTop:20,
+    borderRadius:10,
+    margin:'auto'
   },
 
   coverView: {
