@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, TouchableHighlight, Modal, ScrollView } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { AppLoading } from 'expo';
+import { TextInput } from 'react-native';
+
 
 export default function App() {
 
@@ -23,9 +25,12 @@ export default function App() {
     }
   ]);
 
+  const [modal, setModal] = useState(true);
+
   function deletarTarefa(id) {
     
     let newTarefas = tarefas.filter(function(val){
+      alert('Tarefa com id '+id+' foi deletada com sucesso!');
       return val.id != id;
     });
 
@@ -34,6 +39,31 @@ export default function App() {
 
   return (
     <ScrollView style={{flex:1}}>
+
+<StatusBar hidden />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modal}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TextInput autoFocus={true}></TextInput>
+
+            <TouchableHighlight
+              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+              onPress={() => {
+                setModal(!modal);
+              }}
+            >
+              <Text style={styles.textStyle}>Adicionar Tarefa</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
 
         <ImageBackground source={image} style={styles.image}>
           <View style={styles.coverView}>
@@ -89,6 +119,48 @@ const styles = StyleSheet.create({
     borderBottomColor:'black',
     flexDirection:'row',
     paddingBottom:10,
-  }
+  },
+  // Estilos para nossa modal
+centeredView: {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: 'rgba(0, 0, 0, 0.5)'
+},
+modalView: {
+  margin: 20,
+  backgroundColor: "white",
+  borderRadius: 20,
+  padding: 35,
+  alignItems: "center",
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
+  elevation: 5,
+  // Adicionei 'position: "relative"' para o zIndex funcionar
+  position: "relative",
+  zIndex: 5,
+},
+openButton: {
+  backgroundColor: "#F194FF",
+  borderRadius: 20,
+  padding: 10,
+  elevation: 2
+},
+textStyle: {
+  color: "white",
+  fontWeight: "bold",
+  textAlign: "center"
+},
+modalText: {
+  marginBottom: 15,
+  textAlign: "center"
+}
+
+  
 });
 
