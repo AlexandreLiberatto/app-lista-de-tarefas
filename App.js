@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, TouchableHighlight, Modal, ScrollView } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { AppLoading } from 'expo';
@@ -10,24 +11,26 @@ export default function App() {
 
   const image = require('./resources/bg.jpg')
 
-  const [tarefas, setarTarefas] = useState([
-    {
-      id: 1,
-      tarefa: 'Minha tarefa 1.'
-    },
-    {
-      id: 2,
-      tarefa: 'Minha outra tarefa 2.'
-    },
-    {
-      id: 3,
-      tarefa: 'Minha outra tarefa 3.'
-    }
-  ]);
+  const [tarefas, setarTarefas] = useState([]);
 
   const [modal, setModal] = useState(false);
 
   const [tarefaAtual, setTarefaAtual] = useState('');
+
+  useEffect(() => {
+
+    (async () => {
+      try {
+        let tarefaAtual = await AsyncStorage.getItem('tarefas');
+        if(tarefaAtual == null)
+          setarTarefas([]);
+        else
+          setarTarefas(JSON.parse(tarefaAtual));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   function deletarTarefa(id) {
     
@@ -37,6 +40,15 @@ export default function App() {
     });
 
     setarTarefas(newTarefas);
+
+    (async () => {
+      try {
+        await AsyncStorage.setItem('tarefas', JSON.stringify(newTarefas));
+        //console.log('chamado');
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }
 
   function addTarefa() {
@@ -51,6 +63,14 @@ export default function App() {
     let tarefa = {id: id, tarefa: tarefaAtual};
 
     setarTarefas([...tarefas, tarefa]);
+
+    (async () => {
+      try {
+        await AsyncStorage.setItem('tarefas', JSON.stringify([...tarefas, tarefa]));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
     
   };
 
