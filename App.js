@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AsyncStorage } from 'react-native';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, TouchableHighlight, Modal, ScrollView } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { AppLoading } from 'expo';
